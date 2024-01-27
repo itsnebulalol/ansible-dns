@@ -7,6 +7,11 @@ Deploy a fast recursive DNS server with Ansible.
 - Linux machine with a modern Python version
 - Another Linux machine with a fresh Debian/Ubuntu installation
 
+## What does this install
+
+- [Unbound](https://github.com/NLnetLabs/unbound) - main DNS server
+- [Blocky](https://github.com/0xERR0R/blocky) - uses Unbound server as an upstream, provides DoH and DoT (soon), and blocks ads
+
 ## Installation
 
 1. Install Ansible and jmespath on the host: `pip install ansible jmespath`
