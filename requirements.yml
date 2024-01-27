@@ -1,0 +1,7 @@
+collections:
+  - community.general
+
+roles:
+  - name: unbound
+    src: https://github.com/itsnebulalol/ansible-role-unbound
+    version: master

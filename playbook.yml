@@ -1,0 +1,35 @@
+---
+- name: Ansible-DNS
+  hosts: all
+  become: true
+
+  pre_tasks:
+    - name: Set sysctl config
+      ansible.posix.sysctl:
+        name: '{{ item.key }}'
+        value: '{{ item.value }}'
+        sysctl_set: true
+        state: present
+        reload: true
+        ignoreerrors: true
+      with_dict: '{{ sysctl_config }}'
+
+  #   - name: Check if port 53 is in use
+  #     ansible.builtin.wait_for:
+  #       host: localhost
+  #       port: 53
+  #       timeout: 1
+  #     register: port_53_status
+  #     ignore_errors: true
+
+  #   - name: Disable systemd-resolved
+  #     ansible.builtin.systemd:
+  #       name: systemd-resolved
+  #       state: stopped
+  #       enabled: false
+  #       masked: true
+  #     when: port_53_status.elapsed < 1
+
+  roles:
+    - unbound
+    - blocky

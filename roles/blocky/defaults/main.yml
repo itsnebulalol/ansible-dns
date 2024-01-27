@@ -1,0 +1,46 @@
+---
+blocky_version: v0.23
+blocky_base: "blocky-{{ blocky_version }}"
+blocky_arch: "{{ ansible_machine }}"
+blocky_system: "{{ ansible_system }}"
+blocky_base_url: https://github.com/0xERR0R/blocky/releases/download
+blocky_download_url: "{{ blocky_base_url }}/{{ blocky_version }}/blocky_{{ blocky_version }}_{{ blocky_system }}_{{ blocky_arch }}.tar.gz"
+blocky_checksum_url: "{{ blocky_base_url }}/{{ blocky_version }}/blocky_checksums.txt"
+blocky_download_path: /tmp
+blocky_install_path: /opt/blocky
+
+blocky_blocking_ttl: 1h
+
+blocky_blocking_client_groups_block:
+  default:
+    - ads
+    - malware
+
+blocky_blocking_blacklists:
+  ads:
+    - https://github.com/T145/black-mirror/releases/download/latest/BLOCK_DOMAIN.txt
+    - https://big.oisd.nl
+    - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/pro.txt
+    - https://gist.github.com/itsnebulalol/21205b44c081be2b2417829d4396408b/raw/blocklist.txt
+  malware:
+    - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/adblock/tif.txt
+
+blocky_blocking_whitelists:
+  ads:
+    - https://github.com/T145/black-mirror/releases/download/latest/ALLOW_DOMAIN.txt
+    - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/whitelist.txt
+    - https://raw.githubusercontent.com/hagezi/dns-blocklists/main/whitelist-referral.txt
+    - https://gist.github.com/itsnebulalol/21205b44c081be2b2417829d4396408b/raw/allowlist.txt
+
+blocky_ports_dns: 53
+blocky_ports_http: 4000
+
+blocky_log_level: info
+
+blocky_upstreams:
+  default:
+    - 127.0.0.1:5053
+
+blocky_custom_dns: {}
+
+blocky_custom_domain: {}

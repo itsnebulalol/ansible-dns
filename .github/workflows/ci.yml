@@ -1,0 +1,32 @@
+---
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+  workflow_dispatch:
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      - name: Install test dependencies
+        run: pip3 install ansible yamllint==1.30.0 ansible-lint==6.14.6
+
+      - name: Ansible-lint
+        run: ansible-lint playbook.yml
+
+      - name: Lint yaml files
+        run: yamllint .

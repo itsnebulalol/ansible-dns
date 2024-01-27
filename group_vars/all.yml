@@ -1,0 +1,95 @@
+sysctl_config:
+  net.ipv4.ip_forward: 1
+  net.ipv4.conf.all.forwarding: 1
+  net.ipv6.conf.all.forwarding: 1
+  net.core.rmem_max: 4194304
+  net.core.wmem_max: 4194304
+
+unbound_compile: true
+unbound_compile_version: 1.19.0
+unbound_compile_sha256: a97532468854c61c2de48ca4170de854fd3bc95c8043bb0cfb0fe26605966624
+
+unbound_optimise: true
+unbound_optimise_memory: 80
+unbound:
+  server:
+    cache_max_ttl: 86400
+    cache_min_ttl: 300
+    root_hints: "root.hints"
+    do_ip4: yes
+    do_ip6: yes
+    do_tcp: yes
+    do_udp: yes
+    edns_buffer_size: 1232
+    interface: 0.0.0.0@5053
+    port: 5053
+    prefer_ip6: no
+    rrset_roundrobin: yes
+    username: "unbound"
+    directory: "/usr/local/etc/unbound"
+    chroot: "/usr/local/etc/unbound"
+
+    log_local_actions: no
+    log_queries: no
+    log_replies: no
+    log_servfail: no
+    logfile: unbound.log
+    verbosity: 1
+
+    infra_cache_slabs: 4
+    incoming_num_tcp: 10
+    key_cache_slabs: 4
+    msg_cache_size: 142768128
+    msg_cache_slabs: 4
+    num_queries_per_thread: 4096
+    num_threads: 4
+    outgoing_range: 8192
+    rrset_cache_size: 285536256
+    rrset_cache_slabs: 4
+    minimal_responses: yes
+    prefetch: yes
+    prefetch_key: yes
+    serve_expired: yes
+    so-rcvbuf: 4m
+    so_sndbuf: 4m
+    so_reuseport: yes
+
+    aggressive_nsec: yes
+    delay_close: 10000
+    do_daemonize: no
+    do_not_query_localhost: no
+    neg_cache_size: 4M
+    qname_minimisation: yes
+
+    auto_trust_anchor_file: root.key
+    deny_any: yes
+    harden_algo_downgrade: yes
+    harden_below_nxdomain: yes
+    harden_dnssec_stripped: yes
+    harden_glue: yes
+    harden_large_queries: yes
+    harden_referral_path: no
+    harden_short_bufsize: yes
+    hide_http_user_agent: no
+    hide_identity: yes
+    hide_version: yes
+    http_user_agent: "DNS"
+    identity: "DNS"
+
+    ratelimit: 1000
+    tls_cert_bundle: /etc/ssl/certs/ca-certificates.crt
+    unwanted_reply_threshold: 10000
+    use_caps_for_id: yes
+    val_clean_additional: yes
+
+    private_address:
+      - 127.0.0.0/8
+      - 10.0.0.0/8 # private networks (RFC 1918)
+      - 172.16.0.0/12
+      - 192.168.0.0/16
+      - 169.254.0.0/16 # link_local network (RFC 3927)
+      - fd00::/8
+      - fe80::/10
+
+  remote_control:
+    control_enable: false

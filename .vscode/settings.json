@@ -1,0 +1,4 @@
+{
+    "yaml.schemaStore.enable": false,
+    "ansible.python.interpreterPath": "/bin/python"
+}
